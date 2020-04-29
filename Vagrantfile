@@ -20,6 +20,11 @@ Vagrant.configure("2") do |config|
 
     inst.vm.hostname = "webhost0"
 
+    inst.vm.provision "ansible_local" do |ansible|
+      ansible.compatibility_mode = "2.0"
+      ansible.playbook = "provisioning/setup_vagrant.yaml"
+    end
+
   end
 
 end
