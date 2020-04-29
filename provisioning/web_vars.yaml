@@ -1,0 +1,5 @@
+apache_listen_port: 8080
+apache_vhosts:
+  - { servername: "localhost", documentroot: "/var/www/vhosts/localhost" }
+  - { servername: "alpha.example.tld", documentroot: "/var/www/vhosts/alpha.example.tld" }
+  - { servername: "bravo.example.tld", documentroot: "/var/www/vhosts/bravo.example.tld" }

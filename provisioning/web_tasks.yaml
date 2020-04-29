@@ -1,0 +1,77 @@
+---
+- name: OpenSSL - Installed
+  become: true
+  yum:
+    name: openssl
+    state: present
+
+- name: Web - Ensure web installed
+  include_role:
+    name: geerlingguy.apache
+
+- name: Web - Add wwwdata group
+  become: True
+  group:
+    name: wwwdata
+    state: present
+
+- name: Web - Add vagrant to wwwdata group
+  become: True
+  user:
+    name: vagrant
+    groups: wwwdata
+    append: yes
+
+- name: Web - Create directory localhost
+  become: True
+  file:
+    path: /var/www/vhosts/localhost/
+    state: directory
+    owner: root
+    group: wwwdata
+    recurse: yes
+
+- name: Web - Copy localhost index.html
+  become: True
+  copy:
+    src: /vagrant/www/localhost/index.html
+    dest: /var/www/vhosts/localhost/index.html
+    owner: root
+    group: wwwdata
+    backup: no
+
+- name: Web - Create directory alpha.example.tld
+  become: True
+  file:
+    path: /var/www/vhosts/alpha.example.tld/
+    state: directory
+    owner: root
+    group: wwwdata
+    recurse: yes
+
+- name: Web - Copy alpha.example.tld index.html
+  become: True
+  copy:
+    src: /vagrant/www/alpha.example.tld/index.html
+    dest: /var/www/vhosts/alpha.example.tld/index.html
+    owner: root
+    group: wwwdata
+    backup: no
+
+- name: Web - Create directory bravo.example.tld
+  become: True
+  file:
+    path: /var/www/vhosts/bravo.example.tld/
+    state: directory
+    owner: root
+    group: wwwdata
+    recurse: yes
+
+- name: Web - Copy bravo.example.tld index.html
+  become: True
+  copy:
+    src: /vagrant/www/bravo.example.tld/index.html
+    dest: /var/www/vhosts/bravo.example.tld/index.html
+    owner: root
+    group: wwwdata
+    backup: no
